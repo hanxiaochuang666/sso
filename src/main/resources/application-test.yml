@@ -1,0 +1,18 @@
+server:
+  port: 9990
+mybatis:
+  mapper-locations: mapper/*.xml
+  type-aliases-package: cn.eblcu.sso.mapper
+  type-handlers-package: org.apache.ibatis.type.LocalDateTypeHandler
+
+spring:
+  application:
+    name: bykj
+    druid:
+    
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mytest?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    username: root
+    password: ming
+#    type: com.zaxxer.hikari.HikariDataSource
