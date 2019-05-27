@@ -1,6 +1,6 @@
 package cn.eblcu.sso.domain.service;
 
-import cn.eblcu.sso.persistence.entity.User;
+import cn.eblcu.sso.persistence.entity.dto.User;
 
 import java.util.List;
 

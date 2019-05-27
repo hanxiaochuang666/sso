@@ -18,6 +18,7 @@
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <springfox.version>2.8.0</springfox.version>
     </properties>
 
     <dependencies>
@@ -44,6 +45,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.13</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -53,18 +55,20 @@
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
-            <version>2.2.2</version>
+            <version>${springfox.version}</version>
         </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.2.2</version>
+            <version>${springfox.version}</version>
         </dependency>
 
         <!--阿里巴巴的druid连接池-->
+        <!--连接池监控-->
+        <!--http://localhost:9990/项目名/druid/或http://localhost:9990/项目名/druid/index.html即可访问 -->
         <dependency>
             <groupId>com.alibaba</groupId>
-            <artifactId>druid</artifactId>
+            <artifactId>druid-spring-boot-starter</artifactId>
             <version>1.1.10</version>
         </dependency>
 
@@ -81,6 +85,13 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.4</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.mybatis.generator</groupId>
+            <artifactId>mybatis-generator-core</artifactId>
+            <version>1.3.7</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -99,6 +110,7 @@
                 <groupId>org.mybatis.generator</groupId>
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
                 <version>1.3.7</version>
+
                 <configuration>
                     <configurationFile>${basedir}/src/main/resources/generator/generatorConfig.xml</configurationFile>
                     <overwrite>true</overwrite>

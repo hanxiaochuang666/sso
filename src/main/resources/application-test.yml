@@ -6,13 +6,9 @@ mybatis:
   type-handlers-package: org.apache.ibatis.type.LocalDateTypeHandler
 
 spring:
-  application:
-    name: bykj
-    druid:
-    
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/mytest?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
     username: root
-    password: ming
+    password: root
 #    type: com.zaxxer.hikari.HikariDataSource

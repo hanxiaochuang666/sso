@@ -1,6 +1,6 @@
 package cn.eblcu.sso.ui.api;
 
-import cn.eblcu.sso.persistence.entity.User;
+import cn.eblcu.sso.persistence.entity.dto.User;
 import cn.eblcu.sso.domain.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -35,8 +35,8 @@ public class UserApi {
     @ApiOperation(value = "新增", notes = "新增用户")
     @RequestMapping(value = "/save", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public String addUser(){
-        user.setAge(33);
-        user.setUsername("阿成");
+//        user.setAge(33);
+//        user.setUsername("阿成");
         userService.addUser(user);
         return "增加用户成功";
     }

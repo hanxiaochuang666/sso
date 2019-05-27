@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!-- 数据库驱动:选择你的本地硬盘上面的数据库驱动包,8.0以上的包只会生成insert，所以需要低版本-->
+    <classPathEntry  location="D:\mavenSpace\maven_repo\mysql\mysql-connector-java\5.1.35\mysql-connector-java-5.1.35.jar"/>
+    <!--<context id="DB2Tables"  targetRuntime="MyBatis3">-->
+        <!--&lt;!&ndash;自定义注释插件&ndash;&gt;-->
+        <!--<plugin type="org.mybatis.customPlugin.model.NotesPlugin" />-->
+        <!--&lt;!&ndash;在去除注释的情况下 防止重复生成mapper语句插件&ndash;&gt;-->
+        <!--<plugin type="org.mybatis.customPlugin.xml.IsRepeatPlugin" />-->
+        <!--&lt;!&ndash;添加自定义mapperSql插件&ndash;&gt;-->
+        <!--&lt;!&ndash;<plugin type="org.mybatis.customPlugin.xml.MapperPlugin" >&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;排序规则依赖&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;<property name="orderSqlMap" value="com.jdd.common.orderSqlMap"/>&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;分页规则依赖&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;<property name="pageSqlMap" value="com.jdd.common.pageSqlMap"/>&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;非空判断指定&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;<property name="emptyClass" value="@com.jdd.common.utils.StringUtils@isEmpty"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;</plugin>&ndash;&gt;-->
+        <!--&lt;!&ndash;model添加toString&ndash;&gt;-->
+        <!--<plugin type="org.mybatis.generator.plugins.ToStringPlugin" />-->
+        <!--&lt;!&ndash;自定义生成service&ndash;&gt;-->
+        <!--&lt;!&ndash;<plugin type="org.mybatis.customPlugin.service.ServicePlugin" >&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;包路径&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;<property name="targetPackage" value="cn.eblcu.sso.domain"/>&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;项目路径&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;<property name="targetProject" value="src/main/java"/>&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;继承&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;<property name="rootInterface" value="com.jdd.service.IBaseService"/>&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;&lt;!&ndash;基础dao路径&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;<property name="targetDaoPackage" value="cn.eblcu.sso.domain"/>&ndash;&gt;-->
+        <!--&lt;!&ndash;</plugin>&ndash;&gt;-->
+        <!--<commentGenerator>-->
+            <!--<property name="suppressDate" value="true"/>-->
+            <!--&lt;!&ndash; 是否去除自动生成的注释 true：是 ： false:否 &ndash;&gt;-->
+            <!--<property name="suppressAllComments" value="true"/>-->
+            <!--<property name="addRemarkComments" value="true"/>-->
+        <!--</commentGenerator>-->
+        <!--&lt;!&ndash;数据库链接URL，用户名、密码 &ndash;&gt;-->
+        <!--<jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://127.0.0.1/mytest?serverTimezone=UTC"-->
+                        <!--userId="root" password="root">-->
+        <!--</jdbcConnection>-->
+        <!--&lt;!&ndash;不应强制使用BigDecimal字段&ndash;&gt;-->
+        <!--<javaTypeResolver>-->
+            <!--<property name="forceBigDecimals" value="false"/>-->
+        <!--</javaTypeResolver>-->
+        <!--&lt;!&ndash; 生成模型的包名和位置&ndash;&gt;-->
+        <!--<javaModelGenerator targetPackage="cn.eblcu.sso.domain" targetProject="src/main/java">-->
+            <!--<property name="enableSubPackages" value="true"/>-->
+            <!--<property name="trimStrings" value="true"/>-->
+        <!--</javaModelGenerator>-->
+        <!--&lt;!&ndash; 生成映射文件的包名和位置&ndash;&gt;-->
+        <!--<sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">-->
+            <!--<property name="enableSubPackages" value="true"/>-->
+        <!--</sqlMapGenerator>-->
+        <!--&lt;!&ndash; 生成DAO的包名和位置&ndash;&gt;-->
+        <!--<javaClientGenerator type="XMLMAPPER" targetPackage="cn.eblcu.sso.domain" targetProject="src/main/java">-->
+            <!--<property name="enableSubPackages" value="true"/>-->
+        <!--</javaClientGenerator>-->
+
+        <!--&lt;!&ndash; 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名&ndash;&gt;-->
+        <!--<table tableName="user_info" domainObjectName="UserInfo"-->
+               <!--enableCountByExample="false"-->
+               <!--enableUpdateByExample="false"-->
+               <!--enableDeleteByExample="false"-->
+               <!--enableSelectByExample="false"-->
+               <!--selectByExampleQueryId="false">-->
+            <!--&lt;!&ndash;<property name="rootInterface" value="com.jdd.dao.IBaseMapper"/>&ndash;&gt;-->
+        <!--</table>-->
+    <!--</context>-->
+    <context id="oracleTables" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <!--mysql数据配置-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/mytest?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC"
+                        userId="root"
+                        password="root">
+        </jdbcConnection>
+
+        <!--通用-->
+        <!--<javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+
+        <javaModelGenerator targetPackage="com.sitech.openapi.domain"
+                            targetProject="D:\bss-crm-openapi\src\main\java\">
+            <property name="enableSubPackages" value="false"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="com.sitech.openapi.mapper"
+                         targetProject="D:\bss-crm-openapi\src\main\java\">
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.sitech.openapi.mapper"
+                             targetProject="D:\bss-crm-openapi\src\main\java\">
+            <property name="enableSubPackages" value="false"/>
+        </javaClientGenerator>
+
+        <table tableName="Prod_Inst_Nbr_Uim" enableSelectByExample="true"
+               enableDeleteByExample="true" enableCountByExample="true"
+               enableUpdateByExample="true" selectByExampleQueryId="true" schema="DBORDERADM">
+            <property name="ignoreQualifiersAtRuntime" value="false" />
+            <property name="useActualColumnNames" value="false" />
+        </table>-->
+
+        <!--北语科技使用-->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+
+        <javaModelGenerator targetPackage="cn.eblcu.sso.domain"
+                            targetProject="D:\SVNworkspace\sso\src\main\java\">
+            <property name="enableSubPackages" value="false"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="cn.eblcu.sso.domain"
+                         targetProject="D:\SVNworkspace\sso\src\main\java\">
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="cn.eblcu.sso.domain"
+                             targetProject="D:\SVNworkspace\sso\src\main\java\">
+            <property name="enableSubPackages" value="false"/>
+        </javaClientGenerator>
+
+        <table tableName="user_info" enableSelectByExample="false"
+                enableDeleteByExample="false" enableCountByExample="false"
+                enableUpdateByExample="false" selectByExampleQueryId="false" schema="root">
+        <property name="ignoreQualifiersAtRuntime" value="false" />
+        <property name="useActualColumnNames" value="false" />
+        </table>
+
+
+    </context>
+</generatorConfiguration>

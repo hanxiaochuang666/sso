@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.eblcu.sso.persistence.dao.UserInfoDao">
+  <resultMap id="BaseResultMap" type="cn.eblcu.sso.persistence.entity.dto.UserInfo">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="UserId" jdbcType="INTEGER" property="userid" />
+    <result column="NickName" jdbcType="VARCHAR" property="nickname" />
+    <result column="HeadPhoto" jdbcType="VARCHAR" property="headphoto" />
+    <result column="Gender" jdbcType="INTEGER" property="gender" />
+    <result column="RealName" jdbcType="VARCHAR" property="realname" />
+    <result column="ProvinceId" jdbcType="VARCHAR" property="provinceid" />
+    <result column="CityId" jdbcType="VARCHAR" property="cityid" />
+    <result column="TownId" jdbcType="VARCHAR" property="townid" />
+    <result column="Education" jdbcType="INTEGER" property="education" />
+    <result column="QQ" jdbcType="VARCHAR" property="qq" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, UserId, NickName, HeadPhoto, Gender, RealName, ProvinceId, CityId, TownId, Education, 
+    QQ
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_info
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectUserInfoList" parameterType="cn.eblcu.sso.persistence.entity.dto.UserInfo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user_info
+    <where>
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="headphoto != null">
+        #{headphoto,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="realname != null">
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceid != null">
+        #{provinceid,jdbcType=VARCHAR},
+      </if>
+      <if test="cityid != null">
+        #{cityid,jdbcType=VARCHAR},
+      </if>
+      <if test="townid != null">
+        #{townid,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null">
+        #{education,jdbcType=INTEGER},
+      </if>
+      <if test="qq != null">
+        #{qq,jdbcType=VARCHAR},
+      </if>
+    </where>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_info
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insertSelective" parameterType="cn.eblcu.sso.persistence.entity.dto.UserInfo">
+    insert into user_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="userid != null">
+        UserId,
+      </if>
+      <if test="nickname != null">
+        NickName,
+      </if>
+      <if test="headphoto != null">
+        HeadPhoto,
+      </if>
+      <if test="gender != null">
+        Gender,
+      </if>
+      <if test="realname != null">
+        RealName,
+      </if>
+      <if test="provinceid != null">
+        ProvinceId,
+      </if>
+      <if test="cityid != null">
+        CityId,
+      </if>
+      <if test="townid != null">
+        TownId,
+      </if>
+      <if test="education != null">
+        Education,
+      </if>
+      <if test="qq != null">
+        QQ,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="headphoto != null">
+        #{headphoto,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="realname != null">
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceid != null">
+        #{provinceid,jdbcType=VARCHAR},
+      </if>
+      <if test="cityid != null">
+        #{cityid,jdbcType=VARCHAR},
+      </if>
+      <if test="townid != null">
+        #{townid,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null">
+        #{education,jdbcType=INTEGER},
+      </if>
+      <if test="qq != null">
+        #{qq,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.eblcu.sso.persistence.entity.dto.UserInfo">
+    update user_info
+    <set>
+      <if test="userid != null">
+        UserId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="nickname != null">
+        NickName = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="headphoto != null">
+        HeadPhoto = #{headphoto,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        Gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="realname != null">
+        RealName = #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="provinceid != null">
+        ProvinceId = #{provinceid,jdbcType=VARCHAR},
+      </if>
+      <if test="cityid != null">
+        CityId = #{cityid,jdbcType=VARCHAR},
+      </if>
+      <if test="townid != null">
+        TownId = #{townid,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null">
+        Education = #{education,jdbcType=INTEGER},
+      </if>
+      <if test="qq != null">
+        QQ = #{qq,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

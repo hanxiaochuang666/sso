@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.eblcu.sso.persistence.dao.UserDao">
+    <resultMap id="BaseResultMap" type="cn.eblcu.sso.persistence.entity.dto.User">
+        <id column="Id" jdbcType="INTEGER" property="id"/>
+        <result column="LoginName" jdbcType="VARCHAR" property="loginname"/>
+        <result column="Password" jdbcType="VARCHAR" property="password"/>
+        <result column="Mobile" jdbcType="INTEGER" property="mobile"/>
+        <result column="Email" jdbcType="VARCHAR" property="email"/>
+        <result column="WeiboId" jdbcType="VARCHAR" property="weiboid"/>
+        <result column="WechatId" jdbcType="VARCHAR" property="wechatid"/>
+        <result column="QQOpenId" jdbcType="VARCHAR" property="qqopenid"/>
+        <result column="Status" jdbcType="INTEGER" property="status"/>
+        <result column="RegisterTime" jdbcType="TIMESTAMP" property="registertime"/>
+        <result column="LastLoginTIme" jdbcType="TIMESTAMP" property="lastlogintime"/>
+        <result column="LastLoginIP" jdbcType="VARCHAR" property="lastloginip"/>
+        <result column="Count" jdbcType="INTEGER" property="count"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    Id, LoginName, Password, Mobile, Email, WeiboId, WechatId, QQOpenId, Status, RegisterTime,
+    LastLoginTIme, LastLoginIP, Count
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where Id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="selectUserList" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        <where>
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="loginname != null">
+                #{loginname,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                #{mobile,jdbcType=INTEGER},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="weiboid != null">
+                #{weiboid,jdbcType=VARCHAR},
+            </if>
+            <if test="wechatid != null">
+                #{wechatid,jdbcType=VARCHAR},
+            </if>
+            <if test="qqopenid != null">
+                #{qqopenid,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="registertime != null">
+                #{registertime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastlogintime != null">
+                #{lastlogintime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastloginip != null">
+                #{lastloginip,jdbcType=VARCHAR},
+            </if>
+            <if test="count != null">
+                #{count,jdbcType=INTEGER},
+            </if>
+        </where>
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user
+    where Id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insertSelective" parameterType="cn.eblcu.sso.persistence.entity.dto.User">
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                Id,
+            </if>
+            <if test="loginname != null">
+                LoginName,
+            </if>
+            <if test="password != null">
+                Password,
+            </if>
+            <if test="mobile != null">
+                Mobile,
+            </if>
+            <if test="email != null">
+                Email,
+            </if>
+            <if test="weiboid != null">
+                WeiboId,
+            </if>
+            <if test="wechatid != null">
+                WechatId,
+            </if>
+            <if test="qqopenid != null">
+                QQOpenId,
+            </if>
+            <if test="status != null">
+                Status,
+            </if>
+            <if test="registertime != null">
+                RegisterTime,
+            </if>
+            <if test="lastlogintime != null">
+                LastLoginTIme,
+            </if>
+            <if test="lastloginip != null">
+                LastLoginIP,
+            </if>
+            <if test="count != null">
+                Count,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="loginname != null">
+                #{loginname,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                #{mobile,jdbcType=INTEGER},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="weiboid != null">
+                #{weiboid,jdbcType=VARCHAR},
+            </if>
+            <if test="wechatid != null">
+                #{wechatid,jdbcType=VARCHAR},
+            </if>
+            <if test="qqopenid != null">
+                #{qqopenid,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="registertime != null">
+                #{registertime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastlogintime != null">
+                #{lastlogintime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastloginip != null">
+                #{lastloginip,jdbcType=VARCHAR},
+            </if>
+            <if test="count != null">
+                #{count,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="cn.eblcu.sso.persistence.entity.dto.User">
+        update user
+        <set>
+            <if test="loginname != null">
+                LoginName = #{loginname,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                Password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null">
+                Mobile = #{mobile,jdbcType=INTEGER},
+            </if>
+            <if test="email != null">
+                Email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="weiboid != null">
+                WeiboId = #{weiboid,jdbcType=VARCHAR},
+            </if>
+            <if test="wechatid != null">
+                WechatId = #{wechatid,jdbcType=VARCHAR},
+            </if>
+            <if test="qqopenid != null">
+                QQOpenId = #{qqopenid,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                Status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="registertime != null">
+                RegisterTime = #{registertime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastlogintime != null">
+                LastLoginTIme = #{lastlogintime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="lastloginip != null">
+                LastLoginIP = #{lastloginip,jdbcType=VARCHAR},
+            </if>
+            <if test="count != null">
+                Count = #{count,jdbcType=INTEGER},
+            </if>
+        </set>
+        where Id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

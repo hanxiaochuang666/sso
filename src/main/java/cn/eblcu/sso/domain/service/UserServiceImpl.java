@@ -1,7 +1,7 @@
 package cn.eblcu.sso.domain.service;
 
 import cn.eblcu.sso.persistence.dao.UserDao;
-import cn.eblcu.sso.persistence.entity.User;
+import cn.eblcu.sso.persistence.entity.dto.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public List<User> getUser() {
-        return userMapper.getUser();
+        return userMapper.selectUserList(new User());
     }
 
     @Override
