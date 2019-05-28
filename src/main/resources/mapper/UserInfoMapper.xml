@@ -29,38 +29,38 @@
     <include refid="Base_Column_List" />
     from user_info
     <where>
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
+      <if test="id != null and id != '' ">
+        and Id = #{id,jdbcType=INTEGER}
       </if>
-      <if test="userid != null">
-        #{userid,jdbcType=INTEGER},
+      <if test="userid != null and userid != '' ">
+        and UserId = #{userid,jdbcType=INTEGER}
       </if>
-      <if test="nickname != null">
-        #{nickname,jdbcType=VARCHAR},
+      <if test="nickname != null and nickname != '' ">
+        and NickName = #{nickname,jdbcType=VARCHAR}
       </if>
-      <if test="headphoto != null">
-        #{headphoto,jdbcType=VARCHAR},
+      <if test="headphoto != null and headphoto != '' ">
+        and HeadPhoto = #{headphoto,jdbcType=VARCHAR}
       </if>
-      <if test="gender != null">
-        #{gender,jdbcType=INTEGER},
+      <if test="gender != null and gender != '' ">
+        and Gender = #{gender,jdbcType=INTEGER}
       </if>
-      <if test="realname != null">
-        #{realname,jdbcType=VARCHAR},
+      <if test="realname != null and realname != '' ">
+        and RealName = #{realname,jdbcType=VARCHAR}
       </if>
-      <if test="provinceid != null">
-        #{provinceid,jdbcType=VARCHAR},
+      <if test="provinceid != null and provinceid != '' ">
+        and ProvinceId = #{provinceid,jdbcType=VARCHAR}
       </if>
-      <if test="cityid != null">
-        #{cityid,jdbcType=VARCHAR},
+      <if test="cityid != null and cityid != '' ">
+        and CityId = #{cityid,jdbcType=VARCHAR}
       </if>
-      <if test="townid != null">
-        #{townid,jdbcType=VARCHAR},
+      <if test="townid != null and townid != '' ">
+        and TownId = #{townid,jdbcType=VARCHAR}
       </if>
-      <if test="education != null">
-        #{education,jdbcType=INTEGER},
+      <if test="education != null and education != '' ">
+        and Education = #{education,jdbcType=INTEGER}
       </if>
-      <if test="qq != null">
-        #{qq,jdbcType=VARCHAR},
+      <if test="qq != null and qq != '' ">
+        and QQ = #{qq,jdbcType=VARCHAR}
       </if>
     </where>
   </select>

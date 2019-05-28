@@ -1,14 +1,19 @@
 package cn.eblcu.sso.domain.service;
 
 import cn.eblcu.sso.persistence.entity.dto.User;
+import cn.eblcu.sso.ui.model.UserApiModel;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserService {
-    public List<User> getUser();
 
-    public void deleteUser(int id);
+    List<User> getUserList();
 
-    public void addUser(User user);
+    User getUser(User user);
+
+    void deleteUser(int id);
+
+    Map<String,Object> addUser(UserApiModel user) throws Exception;
 
 }

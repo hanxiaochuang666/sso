@@ -1,4 +1,5 @@
 package cn.eblcu.sso.ui.config;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -12,9 +13,14 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig {
 
+    // 控制启用或者禁用
+    @Value("${swagger.enable}")
+    private Boolean enable;
+
     @Bean
     public Docket createRestApi(){
         return new Docket(DocumentationType.SWAGGER_2)
+                .enable(enable)
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("cn.eblcu.sso.ui.api"))
                 .build()

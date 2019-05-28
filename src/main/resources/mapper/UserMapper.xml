@@ -31,44 +31,44 @@
         <include refid="Base_Column_List"/>
         from user
         <where>
-            <if test="id != null">
-                #{id,jdbcType=INTEGER},
+            <if test="id != null and id != '' ">
+                and Id = #{id,jdbcType=INTEGER}
             </if>
-            <if test="loginname != null">
-                #{loginname,jdbcType=VARCHAR},
+            <if test="loginname != null and loginname != '' ">
+                and LoginName = #{loginname,jdbcType=VARCHAR}
             </if>
-            <if test="password != null">
-                #{password,jdbcType=VARCHAR},
+            <if test="password != null and password != '' ">
+                and Password = #{password,jdbcType=VARCHAR}
             </if>
-            <if test="mobile != null">
-                #{mobile,jdbcType=INTEGER},
+            <if test="mobile != null and mobile != '' ">
+                and  Mobile = #{mobile,jdbcType=INTEGER}
             </if>
-            <if test="email != null">
-                #{email,jdbcType=VARCHAR},
+            <if test="email != null and email != '' ">
+                and Email = #{email,jdbcType=VARCHAR}
             </if>
-            <if test="weiboid != null">
-                #{weiboid,jdbcType=VARCHAR},
+            <if test="weiboid != null and weiboid != '' ">
+                and WeiboId = #{weiboid,jdbcType=VARCHAR}
             </if>
-            <if test="wechatid != null">
-                #{wechatid,jdbcType=VARCHAR},
+            <if test="wechatid != null and wechatid != '' ">
+                and WechatId = #{wechatid,jdbcType=VARCHAR}
             </if>
-            <if test="qqopenid != null">
-                #{qqopenid,jdbcType=VARCHAR},
+            <if test="qqopenid != null and qqopenid != '' ">
+                and QQOpenId = #{qqopenid,jdbcType=VARCHAR}
             </if>
-            <if test="status != null">
-                #{status,jdbcType=INTEGER},
+            <if test="status != null and status != '' ">
+                and Status = #{status,jdbcType=INTEGER}
             </if>
-            <if test="registertime != null">
-                #{registertime,jdbcType=TIMESTAMP},
+            <if test="registertime != null and registertime != '' ">
+                and RegisterTime = #{registertime,jdbcType=TIMESTAMP}
             </if>
-            <if test="lastlogintime != null">
-                #{lastlogintime,jdbcType=TIMESTAMP},
+            <if test="lastlogintime != null and lastlogintime != '' ">
+                and LastLoginTIme = #{lastlogintime,jdbcType=TIMESTAMP}
             </if>
-            <if test="lastloginip != null">
-                #{lastloginip,jdbcType=VARCHAR},
+            <if test="lastloginip != null and lastloginip != '' ">
+                and LastLoginIP = #{lastloginip,jdbcType=VARCHAR}
             </if>
-            <if test="count != null">
-                #{count,jdbcType=INTEGER},
+            <if test="count != null and count != '' ">
+                and Count = #{count,jdbcType=INTEGER}
             </if>
         </where>
     </select>
@@ -76,7 +76,8 @@
     delete from user
     where Id = #{id,jdbcType=INTEGER}
     </delete>
-    <insert id="insertSelective" parameterType="cn.eblcu.sso.persistence.entity.dto.User">
+    <insert id="insertSelective" parameterType="cn.eblcu.sso.persistence.entity.dto.User"
+            useGeneratedKeys="true"  keyProperty="id">
         insert into user
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">

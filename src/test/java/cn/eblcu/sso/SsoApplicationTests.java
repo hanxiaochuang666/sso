@@ -23,7 +23,7 @@ public class SsoApplicationTests {
 
     @Test
     public void getUser() {
-        List<User> list = userService.getUser();
+        List<User> list = userService.getUserList();
         if (list != null && list.size() > 0) {
             for (User user : list) {
                 System.out.println(user.getLoginname());

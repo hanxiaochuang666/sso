@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "http://toolkit.alibaba-inc.com/dtd/log4j/log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+    <appender name="CONSOLE-APPENDER" class="org.apache.log4j.ConsoleAppender">
+        <param name="encoding" value="UTF-8" />
+        <param name="threshold" value="debug"></param>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %-5p %-32t - %m%n" />
+        </layout>
+    </appender>
+    <appender name="DEFAULT-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="file" value="F:/logs/sso.log"/>
+        <param name="append" value="true"/>
+        <param name="encoding" value="UTF-8"/>
+        <param name="maxFileSize" value="1GB"/>
+        <param name="maxBackupIndex" value="5"/>
+        <param name="threshold" value="info"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} [%-5p][%c{1}] [%t] - %m%n"/>
+        </layout>
+        <filter class="cn.eblcu.sso.ui.config.MyLoggerFilter">
+            <param name="packageLogerPath" value="F:/logs/" />
+            <param name="filterPackagePath" value="cn.eblcu.sso" />
+        </filter>
+    </appender>
+
+    <appender name="ERROR-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="file" value="./logs/error.log"/>
+        <param name="append" value="true"/>
+        <param name="encoding" value="UTF-8"/>
+        <param name="threshold" value="error"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %-5p %-32t - %m%n"/>
+        </layout>
+    </appender>
+    <root>
+        <level value="info" />
+        <appender-ref ref="CONSOLE-APPENDER" />
+       <!-- <appender-ref ref="ERROR-APPENDER" />-->
+        <appender-ref ref="DEFAULT-APPENDER" />
+    </root>
+
+</log4j:configuration>

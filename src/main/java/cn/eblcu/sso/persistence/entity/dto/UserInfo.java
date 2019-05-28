@@ -14,7 +14,6 @@ import java.util.Objects;
  * @Date：add on 9:21 2019/5/27
  */
 @Component
-@ApiModel(value = "用户扩展信息")
 public class UserInfo implements Serializable {
 
     private static final long serialVersionUID = -1650745852979857066L;
@@ -47,7 +46,7 @@ public class UserInfo implements Serializable {
     private String townid;
 
     @ApiModelProperty(value = "学历（0：无 1：专科 2：本科 3：硕士 4：博士及以上）")
-    private int education;
+    private Integer education;
 
     @ApiModelProperty(value = "QQ号码")
     private String qq;
@@ -124,11 +123,11 @@ public class UserInfo implements Serializable {
         this.townid = townid;
     }
 
-    public int getEducation() {
+    public Integer getEducation() {
         return education;
     }
 
-    public void setEducation(int education) {
+    public void setEducation(Integer education) {
         this.education = education;
     }
 

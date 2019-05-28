@@ -1,18 +1,17 @@
 package cn.eblcu.sso.persistence.entity.dto;
 
 import cn.eblcu.sso.persistence.dao.UserInfoDao;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
 @Component
-@ApiModel(value = "用户基本信息")
 public class User implements Serializable {
 
     private static final long serialVersionUID = -2522840344126053929L;
@@ -20,13 +19,21 @@ public class User implements Serializable {
     @Autowired
     private UserInfoDao userInfoMapper;
 
+    private static UserInfoDao userInfoMappers;
+
+    @PostConstruct
+    public void init() {
+        userInfoMappers = this.userInfoMapper;
+    }
+
+
     @ApiModelProperty(value = "主键id")
     private Integer id;
 
     @ApiModelProperty(value = "登录时间")
     private String loginname;
 
-    @ApiModelProperty(value = "密码")
+    @ApiModelProperty(value = "密码",required = true)
     private String password;
 
     @ApiModelProperty(value = "手机号")
@@ -169,8 +176,8 @@ public class User implements Serializable {
     public UserInfo getUserinfo() {
         UserInfo u = new UserInfo();
         u.setUserid(this.id);
-        List<UserInfo> userinfos = userInfoMapper.selectUserInfoList(u);
-        if (userinfos != null) {
+        List<UserInfo> userinfos = userInfoMappers.selectUserInfoList(u);
+        if (userinfos != null && userinfos.size() > 0) {
             userinfo = userinfos.get(0);
         }
         return userinfo;
@@ -209,6 +216,10 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
+        String userInfoStr = null;
+        if(userinfo != null){
+            userInfoStr = userinfo.toString();
+        }
         return "User{" +
                 "id=" + id +
                 ", loginname='" + loginname + '\'' +
@@ -223,7 +234,7 @@ public class User implements Serializable {
                 ", lastlogintime=" + lastlogintime +
                 ", lastloginip='" + lastloginip + '\'' +
                 ", count=" + count +
-                ", userinfo=" + userinfo +
+                ", userinfo=" + userInfoStr +
                 '}';
     }
 }
