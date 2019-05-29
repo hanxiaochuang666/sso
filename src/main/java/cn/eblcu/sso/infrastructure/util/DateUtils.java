@@ -51,4 +51,12 @@ public class DateUtils {
         SimpleDateFormat sdf = new SimpleDateFormat(format);
         return sdf.format(date);
     }
+
+    /**
+     * 获取当前日期
+     * @return
+     */
+    public static Date now(){
+        return new Date();
+    }
 }

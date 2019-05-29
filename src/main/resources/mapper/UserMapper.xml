@@ -31,7 +31,7 @@
         <include refid="Base_Column_List"/>
         from user
         <where>
-            <if test="id != null and id != '' ">
+            <if test="id != null">
                 and Id = #{id,jdbcType=INTEGER}
             </if>
             <if test="loginname != null and loginname != '' ">
@@ -40,7 +40,7 @@
             <if test="password != null and password != '' ">
                 and Password = #{password,jdbcType=VARCHAR}
             </if>
-            <if test="mobile != null and mobile != '' ">
+            <if test="mobile != null">
                 and  Mobile = #{mobile,jdbcType=INTEGER}
             </if>
             <if test="email != null and email != '' ">
@@ -55,19 +55,19 @@
             <if test="qqopenid != null and qqopenid != '' ">
                 and QQOpenId = #{qqopenid,jdbcType=VARCHAR}
             </if>
-            <if test="status != null and status != '' ">
+            <if test="status != null">
                 and Status = #{status,jdbcType=INTEGER}
             </if>
-            <if test="registertime != null and registertime != '' ">
+            <if test="registertime != null">
                 and RegisterTime = #{registertime,jdbcType=TIMESTAMP}
             </if>
-            <if test="lastlogintime != null and lastlogintime != '' ">
+            <if test="lastlogintime != null">
                 and LastLoginTIme = #{lastlogintime,jdbcType=TIMESTAMP}
             </if>
             <if test="lastloginip != null and lastloginip != '' ">
                 and LastLoginIP = #{lastloginip,jdbcType=VARCHAR}
             </if>
-            <if test="count != null and count != '' ">
+            <if test="count != null">
                 and Count = #{count,jdbcType=INTEGER}
             </if>
         </where>
@@ -80,28 +80,25 @@
             useGeneratedKeys="true"  keyProperty="id">
         insert into user
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                Id,
-            </if>
-            <if test="loginname != null">
+            <if test="loginname != null and loginname != ''">
                 LoginName,
             </if>
-            <if test="password != null">
+            <if test="password != null and password != ''">
                 Password,
             </if>
-            <if test="mobile != null">
+            <if test="mobile != null and mobile != ''">
                 Mobile,
             </if>
-            <if test="email != null">
+            <if test="email != null and email != ''">
                 Email,
             </if>
-            <if test="weiboid != null">
+            <if test="weiboid != null and weiboid != ''">
                 WeiboId,
             </if>
-            <if test="wechatid != null">
+            <if test="wechatid != null and wechatid != ''">
                 WechatId,
             </if>
-            <if test="qqopenid != null">
+            <if test="qqopenid != null and qqopenid != ''">
                 QQOpenId,
             </if>
             <if test="status != null">
@@ -113,7 +110,7 @@
             <if test="lastlogintime != null">
                 LastLoginTIme,
             </if>
-            <if test="lastloginip != null">
+            <if test="lastloginip != null and lastloginip != ''">
                 LastLoginIP,
             </if>
             <if test="count != null">
@@ -121,28 +118,25 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                #{id,jdbcType=INTEGER},
-            </if>
-            <if test="loginname != null">
+            <if test="loginname != null and loginname != ''">
                 #{loginname,jdbcType=VARCHAR},
             </if>
-            <if test="password != null">
+            <if test="password != null and password != ''">
                 #{password,jdbcType=VARCHAR},
             </if>
-            <if test="mobile != null">
+            <if test="mobile != null and mobile != ''">
                 #{mobile,jdbcType=INTEGER},
             </if>
-            <if test="email != null">
+            <if test="email != null and email != ''">
                 #{email,jdbcType=VARCHAR},
             </if>
-            <if test="weiboid != null">
+            <if test="weiboid != null and weiboid != ''">
                 #{weiboid,jdbcType=VARCHAR},
             </if>
-            <if test="wechatid != null">
+            <if test="wechatid != null and wechatid != ''">
                 #{wechatid,jdbcType=VARCHAR},
             </if>
-            <if test="qqopenid != null">
+            <if test="qqopenid != null and qqopenid != ''">
                 #{qqopenid,jdbcType=VARCHAR},
             </if>
             <if test="status != null">
@@ -154,7 +148,7 @@
             <if test="lastlogintime != null">
                 #{lastlogintime,jdbcType=TIMESTAMP},
             </if>
-            <if test="lastloginip != null">
+            <if test="lastloginip != null and lastloginip != ''">
                 #{lastloginip,jdbcType=VARCHAR},
             </if>
             <if test="count != null">
@@ -165,25 +159,25 @@
     <update id="updateByPrimaryKeySelective" parameterType="cn.eblcu.sso.persistence.entity.dto.User">
         update user
         <set>
-            <if test="loginname != null">
+            <if test="loginname != null and loginname != ''">
                 LoginName = #{loginname,jdbcType=VARCHAR},
             </if>
-            <if test="password != null">
+            <if test="password != null and password != ''">
                 Password = #{password,jdbcType=VARCHAR},
             </if>
             <if test="mobile != null">
                 Mobile = #{mobile,jdbcType=INTEGER},
             </if>
-            <if test="email != null">
+            <if test="email != null and email != ''">
                 Email = #{email,jdbcType=VARCHAR},
             </if>
-            <if test="weiboid != null">
+            <if test="weiboid != null and weiboid != ''">
                 WeiboId = #{weiboid,jdbcType=VARCHAR},
             </if>
-            <if test="wechatid != null">
+            <if test="wechatid != null and wechatid != ''">
                 WechatId = #{wechatid,jdbcType=VARCHAR},
             </if>
-            <if test="qqopenid != null">
+            <if test="qqopenid != null and qqopenid != ''">
                 QQOpenId = #{qqopenid,jdbcType=VARCHAR},
             </if>
             <if test="status != null">
@@ -195,7 +189,7 @@
             <if test="lastlogintime != null">
                 LastLoginTIme = #{lastlogintime,jdbcType=TIMESTAMP},
             </if>
-            <if test="lastloginip != null">
+            <if test="lastloginip != null and lastloginip != ''">
                 LastLoginIP = #{lastloginip,jdbcType=VARCHAR},
             </if>
             <if test="count != null">

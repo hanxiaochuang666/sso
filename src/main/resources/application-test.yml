@@ -32,10 +32,35 @@ spring:
     url: jdbc:mysql://localhost:3306/mytest?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
     username: root
     password: root
+  servlet:
+    multipart:
+      #是否支持批量上传
+      enabled: true
+      #上传文件最大为 20M
+      max-file-size: 20MB
+      #上传总数据大小 200M
+      max-request-size: 200MB
 #    type: com.zaxxer.hikari.HikariDataSource
 token:
   # token 失效时间 20分钟
   expires: 1200
-# 控制swagger启用或是禁用
+#控制swagger启用或是禁用
 swagger:
   enable: true
+email:
+  #发送人邮箱
+  fromMailAddress: jiaodongdong@blcu.edu.cn
+  #发送邮箱授权码
+  fromMailPassword: WSFAAaq6fC6uSHft
+  #发送人的昵称显示
+  name: 北语客服
+  #邮件的标题
+  mailTitle: 北语注册验证
+  #验证码有效时间
+  outTime: 120
+
+#用户头像地址
+file:
+  imagePath: E:/userPhotos/
+#本机域名配置
+localUrl: http://192.168.0.178:9990

@@ -29,10 +29,10 @@
     <include refid="Base_Column_List" />
     from user_info
     <where>
-      <if test="id != null and id != '' ">
+      <if test="id != null">
         and Id = #{id,jdbcType=INTEGER}
       </if>
-      <if test="userid != null and userid != '' ">
+      <if test="userid != null">
         and UserId = #{userid,jdbcType=INTEGER}
       </if>
       <if test="nickname != null and nickname != '' ">
@@ -41,7 +41,7 @@
       <if test="headphoto != null and headphoto != '' ">
         and HeadPhoto = #{headphoto,jdbcType=VARCHAR}
       </if>
-      <if test="gender != null and gender != '' ">
+      <if test="gender != null">
         and Gender = #{gender,jdbcType=INTEGER}
       </if>
       <if test="realname != null and realname != '' ">
@@ -56,7 +56,7 @@
       <if test="townid != null and townid != '' ">
         and TownId = #{townid,jdbcType=VARCHAR}
       </if>
-      <if test="education != null and education != '' ">
+      <if test="education != null">
         and Education = #{education,jdbcType=INTEGER}
       </if>
       <if test="qq != null and qq != '' ">
@@ -71,72 +71,66 @@
   <insert id="insertSelective" parameterType="cn.eblcu.sso.persistence.entity.dto.UserInfo">
     insert into user_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        Id,
-      </if>
       <if test="userid != null">
         UserId,
       </if>
-      <if test="nickname != null">
+      <if test="nickname != null and nickname != ''">
         NickName,
       </if>
-      <if test="headphoto != null">
+      <if test="headphoto != null and headphoto != ''">
         HeadPhoto,
       </if>
       <if test="gender != null">
         Gender,
       </if>
-      <if test="realname != null">
+      <if test="realname != null and realname != ''">
         RealName,
       </if>
-      <if test="provinceid != null">
+      <if test="provinceid != null and provinceid != ''">
         ProvinceId,
       </if>
-      <if test="cityid != null">
+      <if test="cityid != null and cityid != ''">
         CityId,
       </if>
-      <if test="townid != null">
+      <if test="townid != null and townid != ''">
         TownId,
       </if>
       <if test="education != null">
         Education,
       </if>
-      <if test="qq != null">
+      <if test="qq != null and qq != ''">
         QQ,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="userid != null">
         #{userid,jdbcType=INTEGER},
       </if>
-      <if test="nickname != null">
+      <if test="nickname != null and nickname != ''">
         #{nickname,jdbcType=VARCHAR},
       </if>
-      <if test="headphoto != null">
+      <if test="headphoto != null and headphoto != ''">
         #{headphoto,jdbcType=VARCHAR},
       </if>
       <if test="gender != null">
         #{gender,jdbcType=INTEGER},
       </if>
-      <if test="realname != null">
+      <if test="realname != null and realname != ''">
         #{realname,jdbcType=VARCHAR},
       </if>
-      <if test="provinceid != null">
+      <if test="provinceid != null and provinceid != ''">
         #{provinceid,jdbcType=VARCHAR},
       </if>
-      <if test="cityid != null">
+      <if test="cityid != null and cityid != ''">
         #{cityid,jdbcType=VARCHAR},
       </if>
-      <if test="townid != null">
+      <if test="townid != null and townid != ''">
         #{townid,jdbcType=VARCHAR},
       </if>
       <if test="education != null">
         #{education,jdbcType=INTEGER},
       </if>
-      <if test="qq != null">
+      <if test="qq != null and qq != ''">
         #{qq,jdbcType=VARCHAR},
       </if>
     </trim>
@@ -147,31 +141,31 @@
       <if test="userid != null">
         UserId = #{userid,jdbcType=INTEGER},
       </if>
-      <if test="nickname != null">
+      <if test="nickname != null and nickname != '' ">
         NickName = #{nickname,jdbcType=VARCHAR},
       </if>
-      <if test="headphoto != null">
+      <if test="headphoto != null and headphoto != '' ">
         HeadPhoto = #{headphoto,jdbcType=VARCHAR},
       </if>
       <if test="gender != null">
         Gender = #{gender,jdbcType=INTEGER},
       </if>
-      <if test="realname != null">
+      <if test="realname != null and realname != '' ">
         RealName = #{realname,jdbcType=VARCHAR},
       </if>
-      <if test="provinceid != null">
+      <if test="provinceid != null and nickname != '' ">
         ProvinceId = #{provinceid,jdbcType=VARCHAR},
       </if>
-      <if test="cityid != null">
+      <if test="cityid != null and cityid != '' ">
         CityId = #{cityid,jdbcType=VARCHAR},
       </if>
-      <if test="townid != null">
+      <if test="townid != null and townid != '' ">
         TownId = #{townid,jdbcType=VARCHAR},
       </if>
       <if test="education != null">
         Education = #{education,jdbcType=INTEGER},
       </if>
-      <if test="qq != null">
+      <if test="qq != null and qq != '' ">
         QQ = #{qq,jdbcType=VARCHAR},
       </if>
     </set>

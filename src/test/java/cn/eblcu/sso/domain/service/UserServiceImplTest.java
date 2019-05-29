@@ -1,7 +1,9 @@
 package cn.eblcu.sso.domain.service;
 
+import cn.eblcu.sso.domain.service.impl.RedisUtils;
 import cn.eblcu.sso.persistence.entity.dto.User;
-import cn.eblcu.sso.ui.model.UserApiModel;
+import cn.eblcu.sso.persistence.entity.dto.UserInfo;
+import cn.eblcu.sso.ui.model.UserInfoApiModel;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,6 +23,8 @@ public class UserServiceImplTest {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private RedisUtils redisUtils;
 
     @Test
     public void getUserList() {
@@ -35,14 +39,12 @@ public class UserServiceImplTest {
     @Test
     public void addUser() throws Exception{
 
-        UserApiModel userApiModel = new UserApiModel();
-        User user = new User();
-        user.setMobile(13327401234L);
-        user.setPassword("123456");
-        userApiModel.setUser(user);
-        userApiModel.setRegisterType("1");
+        UserInfoApiModel userApiModel = new UserInfoApiModel();
+        userApiModel.setEmail("1111111111@qq.com");
+        userApiModel.setPassword("123123");
+        userApiModel.setRegisterType("2");
         Map<String,Object> map = userService.addUser(userApiModel);
-        log.info("测试结果======"+map.toString());
+        log.info("注册结果======"+map.toString());
 
     }
 
@@ -54,5 +56,33 @@ public class UserServiceImplTest {
         user.setLoginname("13327401234");
         user = userService.getUser(user);
         log.info("查询结果=======" + user.toString());
+    }
+
+    @Test
+    public void bindUserTest() {
+        UserInfoApiModel user = new UserInfoApiModel();
+        user.setEmail("623233529@qq.com");
+        user.setLoginname("hanchuang");
+        user.setCode("CUIRLd");
+        user.setBindType("2");
+        user.setUserId(1);
+        try {
+            userService.bindUser(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void editUserTest() {
+
+        UserInfo userInfo = new UserInfo();
+        userInfo.setId(1);
+        userInfo.setNickname("xxxssswww");
+        try {
+            userService.editUserInfo(userInfo);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

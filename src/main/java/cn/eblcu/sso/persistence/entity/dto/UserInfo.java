@@ -1,9 +1,9 @@
 package cn.eblcu.sso.persistence.entity.dto;
 
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.stereotype.Component;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -21,6 +21,7 @@ public class UserInfo implements Serializable {
     @ApiModelProperty(value = "主键id")
     private Integer id;
 
+    @NotNull(message = "${userInfo.userId.notNull}")
     @ApiModelProperty(value = "外键 用户基本信息id")
     private Integer userid;
 

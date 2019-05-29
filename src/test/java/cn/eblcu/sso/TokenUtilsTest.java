@@ -1,6 +1,6 @@
 package cn.eblcu.sso;
 
-import cn.eblcu.sso.domain.service.RedisUtils;
+import cn.eblcu.sso.domain.service.impl.RedisUtils;
 import cn.eblcu.sso.infrastructure.util.TokenUtils;
 import cn.eblcu.sso.persistence.entity.dto.User;
 import org.junit.Test;

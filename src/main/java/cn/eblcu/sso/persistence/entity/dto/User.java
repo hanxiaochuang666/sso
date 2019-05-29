@@ -30,7 +30,7 @@ public class User implements Serializable {
     @ApiModelProperty(value = "主键id")
     private Integer id;
 
-    @ApiModelProperty(value = "登录时间")
+    @ApiModelProperty(value = "登录账号")
     private String loginname;
 
     @ApiModelProperty(value = "密码",required = true)
@@ -174,6 +174,9 @@ public class User implements Serializable {
     }
 
     public UserInfo getUserinfo() {
+        if(null != userinfo){
+            return userinfo;
+        }
         UserInfo u = new UserInfo();
         u.setUserid(this.id);
         List<UserInfo> userinfos = userInfoMappers.selectUserInfoList(u);
