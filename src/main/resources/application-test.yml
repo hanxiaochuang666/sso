@@ -4,6 +4,13 @@ mybatis:
   mapper-locations: mapper/*.xml
   type-aliases-package: cn.eblcu.sso.mapper
   type-handlers-package: org.apache.ibatis.type.LocalDateTypeHandler
+  configuration:
+  # 启动懒加载
+    lazy-loading-enabled: true
+  #false 为按需加载，可通过fetchType="eager"设置为立即加载
+    aggressive-lazy-loading: false
+    lazy-load-trigger-methods:
+
 redis:
   hostName: 127.0.0.1
   port: 6379

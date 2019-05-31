@@ -18,11 +18,11 @@
     Id, UserId, NickName, HeadPhoto, Gender, RealName, ProvinceId, CityId, TownId, Education, 
     QQ
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+  <select id="selectUserInfoByUserId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
     <include refid="Base_Column_List" />
     from user_info
-    where Id = #{id,jdbcType=INTEGER}
+    where UserId = #{userid,jdbcType=INTEGER}
   </select>
   <select id="selectUserInfoList" parameterType="cn.eblcu.sso.persistence.entity.dto.UserInfo" resultMap="BaseResultMap">
     select
@@ -64,10 +64,10 @@
       </if>
     </where>
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from user_info
-    where Id = #{id,jdbcType=INTEGER}
-  </delete>
+  <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">-->
+    <!--delete from user_info-->
+    <!--where Id = #{id,jdbcType=INTEGER}-->
+  <!--</delete>-->
   <insert id="insertSelective" parameterType="cn.eblcu.sso.persistence.entity.dto.UserInfo">
     insert into user_info
     <trim prefix="(" suffix=")" suffixOverrides=",">

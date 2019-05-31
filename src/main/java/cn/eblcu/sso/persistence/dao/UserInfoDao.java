@@ -1,24 +1,18 @@
 package cn.eblcu.sso.persistence.dao;
 
 import cn.eblcu.sso.persistence.entity.dto.UserInfo;
-import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Delete;
 
 import java.util.List;
 
-/**
- * @desc
- * @Author：hanchuang
- * @Version 1.0
- * @Date：add on 14:44 2019/5/27
- */
-@Mapper
 public interface UserInfoDao {
 
+    @Delete("delete from user_info where Id = #{id}")
     int deleteByPrimaryKey(Integer id);
 
     int insertSelective(UserInfo record);
 
-    UserInfo selectByPrimaryKey(Integer id);
+    UserInfo selectUserInfoByUserId(Integer id);
 
     List<UserInfo> selectUserInfoList(UserInfo record);
 

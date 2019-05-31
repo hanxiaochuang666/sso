@@ -15,6 +15,12 @@
         <result column="LastLoginTIme" jdbcType="TIMESTAMP" property="lastlogintime"/>
         <result column="LastLoginIP" jdbcType="VARCHAR" property="lastloginip"/>
         <result column="Count" jdbcType="INTEGER" property="count"/>
+        <!--一对一延迟加载：property对应dto中的对象实体引用，column对应要给子查询传的参数，select对应Dao中的查询方法
+        javaType对应返回值类型，fetchType="eager"表示直接加载,不写默认懒加载-->
+        <association property="userinfo" column="Id" fetchType="lazy"
+                    select="cn.eblcu.sso.persistence.dao.UserInfoDao.selectUserInfoByUserId"
+                    javaType="cn.eblcu.sso.persistence.entity.dto.UserInfo" />
+
     </resultMap>
     <sql id="Base_Column_List">
     Id, LoginName, Password, Mobile, Email, WeiboId, WechatId, QQOpenId, Status, RegisterTime,
@@ -72,10 +78,10 @@
             </if>
         </where>
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from user
-    where Id = #{id,jdbcType=INTEGER}
-    </delete>
+    <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">-->
+    <!--delete from user-->
+    <!--where Id = #{id,jdbcType=INTEGER}-->
+    <!--</delete>-->
     <insert id="insertSelective" parameterType="cn.eblcu.sso.persistence.entity.dto.User"
             useGeneratedKeys="true"  keyProperty="id">
         insert into user

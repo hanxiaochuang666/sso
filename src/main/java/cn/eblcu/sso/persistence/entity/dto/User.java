@@ -1,31 +1,15 @@
 package cn.eblcu.sso.persistence.entity.dto;
 
-import cn.eblcu.sso.persistence.dao.UserInfoDao;
 import io.swagger.annotations.ApiModelProperty;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import lombok.Data;
 
-import javax.annotation.PostConstruct;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
-import java.util.Objects;
 
-@Component
+@Data
 public class User implements Serializable {
 
     private static final long serialVersionUID = -2522840344126053929L;
-
-    @Autowired
-    private UserInfoDao userInfoMapper;
-
-    private static UserInfoDao userInfoMappers;
-
-    @PostConstruct
-    public void init() {
-        userInfoMappers = this.userInfoMapper;
-    }
-
 
     @ApiModelProperty(value = "主键id")
     private Integer id;
@@ -69,160 +53,14 @@ public class User implements Serializable {
     @ApiModelProperty(value = "用户扩展信息")
     private UserInfo userinfo;
 
-    public Integer getId() {
-        return id;
-    }
+    public User(){}
 
-    public void setId(Integer id) {
+    public User(Integer id) {
         this.id = id;
-    }
-
-    public String getLoginname() {
-        return loginname;
-    }
-
-    public void setLoginname(String loginname) {
-        this.loginname = loginname;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Long getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(Long mobile) {
-        this.mobile = mobile;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getWeiboid() {
-        return weiboid;
-    }
-
-    public void setWeiboid(String weiboid) {
-        this.weiboid = weiboid;
-    }
-
-    public String getWechatid() {
-        return wechatid;
-    }
-
-    public void setWechatid(String wechatid) {
-        this.wechatid = wechatid;
-    }
-
-    public String getQqopenid() {
-        return qqopenid;
-    }
-
-    public void setQqopenid(String qqopenid) {
-        this.qqopenid = qqopenid;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
-    public Date getRegistertime() {
-        return registertime;
-    }
-
-    public void setRegistertime(Date registertime) {
-        this.registertime = registertime;
-    }
-
-    public Date getLastlogintime() {
-        return lastlogintime;
-    }
-
-    public void setLastlogintime(Date lastlogintime) {
-        this.lastlogintime = lastlogintime;
-    }
-
-    public String getLastloginip() {
-        return lastloginip;
-    }
-
-    public void setLastloginip(String lastloginip) {
-        this.lastloginip = lastloginip;
-    }
-
-    public Integer getCount() {
-        return count;
-    }
-
-    public void setCount(Integer count) {
-        this.count = count;
-    }
-
-    public UserInfo getUserinfo() {
-        if(null != userinfo){
-            return userinfo;
-        }
-        UserInfo u = new UserInfo();
-        u.setUserid(this.id);
-        List<UserInfo> userinfos = userInfoMappers.selectUserInfoList(u);
-        if (userinfos != null && userinfos.size() > 0) {
-            userinfo = userinfos.get(0);
-        }
-        return userinfo;
-    }
-
-    public void setUserinfo(UserInfo userinfo) {
-        this.userinfo = userinfo;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User)) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id) &&
-                Objects.equals(loginname, user.loginname) &&
-                Objects.equals(password, user.password) &&
-                Objects.equals(mobile, user.mobile) &&
-                Objects.equals(email, user.email) &&
-                Objects.equals(weiboid, user.weiboid) &&
-                Objects.equals(wechatid, user.wechatid) &&
-                Objects.equals(qqopenid, user.qqopenid) &&
-                Objects.equals(status, user.status) &&
-                Objects.equals(registertime, user.registertime) &&
-                Objects.equals(lastlogintime, user.lastlogintime) &&
-                Objects.equals(lastloginip, user.lastloginip) &&
-                Objects.equals(count, user.count) &&
-                Objects.equals(userinfo, user.userinfo);
-    }
-
-    @Override
-    public int hashCode() {
-
-        return Objects.hash(id, loginname, password, mobile, email, weiboid, wechatid, qqopenid, status, registertime, lastlogintime, lastloginip, count, userinfo);
     }
 
     @Override
     public String toString() {
-        String userInfoStr = null;
-        if(userinfo != null){
-            userInfoStr = userinfo.toString();
-        }
         return "User{" +
                 "id=" + id +
                 ", loginname='" + loginname + '\'' +
@@ -237,7 +75,7 @@ public class User implements Serializable {
                 ", lastlogintime=" + lastlogintime +
                 ", lastloginip='" + lastloginip + '\'' +
                 ", count=" + count +
-                ", userinfo=" + userInfoStr +
+                ", userinfo=" + userinfo +
                 '}';
     }
 }

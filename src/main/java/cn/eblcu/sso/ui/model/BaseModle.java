@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class BaseModle<T> implements Serializable  {
 
+    private static final long serialVersionUID = 2564425178443693813L;
     private boolean success;
     private String code;
     private String describe;

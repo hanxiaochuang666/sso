@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private RedisUtils redisUtils;
 
-    @Resource(name="registerCheckService")
+    @Resource(name = "registerCheckService")
     private IRegisterCheckService registerCheckService;
 
     @Value("${token.expires}")
@@ -43,8 +43,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getUserList() {
         List<User> users = userDao.selectUserList(new User());
-        if(null != users && users.size() > 0){
-            users.forEach(user -> user.setUserinfo(user.getUserinfo()));
+        if (null != users && users.size() > 0) {
+            users.forEach(user -> user.getUserinfo());
         }
         return users;
     }
@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService {
         List<User> users = userDao.selectUserList(user);
         if (users != null && users.size() > 0) {
             user1 = users.get(0);
-            user1.setUserinfo(user1.getUserinfo());
+            user1.getUserinfo();
         }
         return user1;
     }
@@ -68,43 +68,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public Map addUser(UserInfoApiModel userApiModel) throws Exception{
+    public Map addUser(UserInfoApiModel userApiModel) throws Exception {
 
-        String code = userApiModel.getCode();
-
-        Map<String,Object> retMap = new HashMap<>();
         String regeisterType = userApiModel.getRegisterType();
         String loginName = "";
-        List<User> users = null;
         User user = new User();
         if ("1".equals(regeisterType)) {
-            // 手机号注册
-            // 校验手机号的验证码是否正确
-            boolean result = registerCheckService.checkRegister(Long.toString(userApiModel.getMobile()),code);
-            if(!result){
-                throw new Exception("手机验证码不正确或已过期！");
-            }
-            user.setMobile(userApiModel.getMobile());
-            users = userDao.selectUserList(user);
-            if(null != users && users.size() > 0){
-                throw new Exception("该手机号已被注册！");
-            }else {
-                loginName = "" + user.getMobile();
-            }
-        }else if ("2".equals(regeisterType)){
-            // 邮箱注册
-            // 校验邮箱验证码吗是否正确
-            boolean result = registerCheckService.checkRegister(userApiModel.getEmail(),code);
-            if(!result){
-                throw new Exception("邮箱验证码不正确或已过期！");
-            }
-            user.setEmail(userApiModel.getEmail());
-            users = userDao.selectUserList(user);
-            if(null != users && users.size() > 0){
-                throw new Exception("该邮箱已被注册！");
-            }else{
-                loginName = user.getEmail();
-            }
+            checkPhoneAndCode(userApiModel);
+            loginName = "" + user.getMobile();
+        } else if ("2".equals(regeisterType)) {
+            checkEmailAndCode(userApiModel);
+            loginName = user.getEmail();
         }
         // 将信息保存入库
         Date currDate = DateUtils.now();
@@ -114,101 +88,66 @@ public class UserServiceImpl implements UserService {
         user.setLoginname(loginName);// 默认使用注册账号作为用户名,可以通过用户信息维护接口修改
         user.setStatus(0);
         user.setPassword(userApiModel.getPassword());
-        int id = userDao.insertSelective(user);
-        // todo 没有返回主键id，如果不行就再去库里查一下主键
-        log.info("插入成功，返回主键id======"+id);
-
+        userDao.insertSelective(user);
+        int id = user.getId();
+        log.info("插入成功，返回主键id======" + user.getId());
         // 生成一个token返回给前端
         String token = TokenUtils.createToken(user);
-        log.info("注册自动生成token============"+token);
-
+        log.info("注册自动生成token============" + token);
         // 将token和id存入Redis
-        redisUtils.setStrByTime(token,""+id,expires);
-        retMap.put("token",token);
-        retMap.put("id",id);
-        retMap.put("loginName",user.getLoginname());
+        redisUtils.setStrByTime(token, "" + id, expires);
+        Map<String, Object> retMap = new HashMap<>();
+        retMap.put("token", token);
+        retMap.put("id", id);
+        retMap.put("loginName", user.getLoginname());
         return retMap;
     }
 
     @Override
+    @Transactional
     public void editUser(User user) throws Exception {
 
-        User usertmp = new User();
-        usertmp.setId(user.getId());
-        List<User> users = userDao.selectUserList(usertmp);
-        if(null != users && users.size() > 0){
+        User user1 = userDao.selectByPrimaryKey(user.getId());
+        if (null != user1) {
             // 表示用户存在，直接更新
             userDao.updateByPrimaryKeySelective(user);
-
-            UserInfo userInfo = new UserInfo();
-            userInfo.setUserid(user.getId());
-            List<UserInfo> userInfos = userInfoDao.selectUserInfoList(userInfo);
-            if(null != userInfos && userInfos.size() > 0){ // 表示库里有基本信息了
-                // 更新
+            UserInfo userInfo = userInfoDao.selectUserInfoByUserId(user.getId());
+            if (null != userInfo) {// 更新
+                UserInfo userInfoU = user.getUserinfo();
+                userInfoU.setUserid(user.getId());
+                userInfoU.setId(userInfo.getId());
+                userInfoDao.updateByPrimaryKeySelective(userInfoU);
+            } else {// 创建
                 userInfo = user.getUserinfo();
-                userInfo.setId(userInfos.get(0).getId());
-                userInfoDao.updateByPrimaryKeySelective(userInfo);
-            }else{
-                // 创建
-                userInfo = user.getUserinfo();
+                userInfo.setUserid(user.getId());
                 userInfoDao.insertSelective(userInfo);
             }
-        }else{
+        } else {
             throw new Exception("该用户不存在！");
         }
-
     }
 
     @Override
+    @Transactional
     public void bindUser(UserInfoApiModel userInfoApiModel) throws Exception {
 
-        // 检查用户是否存在
         User user = new User();
         user.setId(userInfoApiModel.getUserId());
-        user.setLoginname(userInfoApiModel.getLoginname());
-        List<User> users = userDao.selectUserList(user);
-
-        String code = userInfoApiModel.getCode();
-        if(null != users && users.size() > 0){
+        // 检查用户是否存在
+        User userCheck = userDao.selectByPrimaryKey(userInfoApiModel.getUserId());
+        if (null != userCheck) {
             String bindType = userInfoApiModel.getBindType();
-            if("1".equals(bindType)){
-                // 手机绑定
-                // 校验手机号的验证码是否正确
-                boolean result = registerCheckService.checkRegister(Long.toString(userInfoApiModel.getMobile()),code);
-                if(!result){
-                    throw new Exception("手机验证码不正确或已过期！");
-                }
-                // 校验手机号是否已经被注册过
-                User usertmp = new User();
-                usertmp.setMobile(userInfoApiModel.getMobile());
-                List<User> users1 = userDao.selectUserList(user);
-                if(null != users1 && users1.size() > 0){
-                    throw new Exception("该手机号已被注册，请更换手机号！");
-                }
-
+            if ("1".equals(bindType)) {// 手机绑定
+                checkPhoneAndCode(userInfoApiModel);
                 user.setMobile(userInfoApiModel.getMobile());
-            }else if("2".equals(bindType)){
-                // 邮箱绑定
-                // 校验邮箱验证码吗是否正确
-                boolean result = registerCheckService.checkRegister(userInfoApiModel.getEmail(),code);
-                if(!result){
-                    throw new Exception("邮箱验证码不正确或已过期！");
-                }
-                // 校验邮箱是否已经被注册过
-                User usertmp = new User();
-                usertmp.setEmail(userInfoApiModel.getEmail());
-                List<User> users1 = userDao.selectUserList(usertmp);
-                if(null != users1 && users1.size() > 0){
-                    throw new Exception("该邮箱已被注册，请更换邮箱！");
-                }
+            } else if ("2".equals(bindType)) {// 邮箱绑定
+                checkEmailAndCode(userInfoApiModel);
                 user.setEmail(userInfoApiModel.getEmail());
             }
             userDao.updateByPrimaryKeySelective(user);
-        }else{
+        } else {
             throw new Exception("用户不存在！");
         }
-
-
     }
 
     @Override
@@ -220,8 +159,39 @@ public class UserServiceImpl implements UserService {
         if (userInfos != null && userInfos.size() > 0) {
             userInfo.setId(userInfos.get(0).getId());
             userInfoDao.updateByPrimaryKeySelective(userInfo);
-        }else{
+        } else {
             userInfoDao.insertSelective(userInfo);
+        }
+    }
+
+
+    private void checkPhoneAndCode(UserInfoApiModel userInfoApiModel) throws Exception {
+
+        boolean result = registerCheckService.checkRegister(Long.toString(userInfoApiModel.getMobile()), userInfoApiModel.getCode());
+        if (!result) {
+            throw new Exception("手机验证码不正确或已过期！");
+        }
+        // 校验手机号是否已经被注册过
+        User userTmp = new User();
+        userTmp.setMobile(userInfoApiModel.getMobile());
+        List<User> users = userDao.selectUserList(userTmp);
+        if (null != users && users.size() > 0) {
+            throw new Exception("该手机号已被注册！");
+        }
+    }
+
+
+    private void checkEmailAndCode(UserInfoApiModel userInfoApiModel) throws Exception {
+        boolean result = registerCheckService.checkRegister(userInfoApiModel.getEmail(), userInfoApiModel.getCode());
+        if (!result) {
+            throw new Exception("邮箱验证码不正确或已过期！");
+        }
+        // 校验邮箱是否已经被注册过
+        User userTmp = new User();
+        userTmp.setEmail(userInfoApiModel.getEmail());
+        List<User> users = userDao.selectUserList(userTmp);
+        if (null != users && users.size() > 0) {
+            throw new Exception("该邮箱已被注册！");
         }
     }
 }

@@ -1,13 +1,13 @@
 package cn.eblcu.sso.persistence.dao;
 
 import cn.eblcu.sso.persistence.entity.dto.User;
-import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Delete;
 
 import java.util.List;
 
-@Mapper
 public interface UserDao {
 
+    @Delete("delete from user where id = #{id}")
     int deleteByPrimaryKey(Integer id);
 
     int insertSelective(User record);
