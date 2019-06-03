@@ -9,11 +9,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 
-/**
- * @ClassName RegisterCheckServiceImplTest
- * @Author 焦冬冬
- * @Date 2019/5/29 17:03
- **/
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Slf4j

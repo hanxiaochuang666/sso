@@ -17,11 +17,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * @ClassName RegisterCheckServiceImpl
- * @Author 焦冬冬
- * @Date 2019/5/29 15:39
- **/
 @Service("registerCheckService")
 public class RegisterCheckServiceImpl implements IRegisterCheckService {
     private Logger logger = LoggerFactory.getLogger(RegisterCheckServiceImpl.class);

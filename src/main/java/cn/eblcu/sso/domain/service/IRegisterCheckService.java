@@ -2,11 +2,6 @@ package cn.eblcu.sso.domain.service;
 
 import cn.eblcu.sso.ui.model.BaseModle;
 
-/**
- * @ClassName IRegisterCheckService
- * @Author 焦冬冬
- * @Date 2019/5/29 15:33
- **/
 public interface IRegisterCheckService {
     /**
      * @Author 焦冬冬

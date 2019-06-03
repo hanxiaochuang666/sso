@@ -16,9 +16,6 @@ import org.apache.log4j.Logger;
 import javax.net.ssl.SSLContext;
 import java.security.NoSuchAlgorithmException;
 
-/**
- * 使用http链接池来管理http连接
- */
 public class AsyncHttp {
     protected static Logger logger = Logger.getLogger(AsyncHttp.class);
     private static final Integer MAX_TOTAL = 100;             //连接池最大连接数

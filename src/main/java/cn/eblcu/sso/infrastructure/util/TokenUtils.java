@@ -6,11 +6,6 @@ import cn.eblcu.sso.persistence.entity.dto.User;
 import java.security.MessageDigest;
 import java.util.Random;
 
-/**
- * @ClassName TokenUtils
- * @Author 焦冬冬
- * @Date 2019/5/27 9:42
- **/
 public class TokenUtils {
 
     private TokenUtils(){

@@ -67,6 +67,14 @@ public class BaseModle<T> implements Serializable  {
         objectBaseModle.setDescribe("操作成功");
         return objectBaseModle;
     }
+
+    public  static BaseModle getSuccessData(Object t,String describe){
+        BaseModle objectBaseModle = new BaseModle(t);
+        objectBaseModle.setCode("0");
+        objectBaseModle.setSuccess(true);
+        objectBaseModle.setDescribe(describe);
+        return objectBaseModle;
+    }
     /**
      * 封装成功处理函数
      * @param t

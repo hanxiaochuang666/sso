@@ -5,13 +5,7 @@ import org.apache.http.conn.HttpClientConnectionManager;
 
 import java.util.concurrent.TimeUnit;
 
-/**
- * @Author 焦冬冬
- * @Description 使用管理器，管理HTTP连接池 无效链接定期清理功能
- * @Date 17:51 2019/5/17
- * @Param
- * @return
- **/
+
 public class HttpClientConnectionMonitorThread extends Thread {
 
     private final HttpClientConnectionManager connManager;

@@ -1,19 +1,16 @@
 package cn.eblcu.sso;
 
 import cn.eblcu.sso.domain.service.impl.RedisUtils;
+import cn.eblcu.sso.infrastructure.util.StringUtils;
 import cn.eblcu.sso.infrastructure.util.TokenUtils;
 import cn.eblcu.sso.persistence.entity.dto.User;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-/**
- * @ClassName TokenUtilsTest
- * @Author 焦冬冬
- * @Date 2019/5/27 13:45
- **/
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class TokenUtilsTest {
@@ -25,11 +22,13 @@ public class TokenUtilsTest {
         user.setLoginname("jdd287061");
         user.setPassword("4545415");
         String token = TokenUtils.createToken(user);
+        Assert.assertTrue(!StringUtils.isEmpty(token));
         System.out.println(token);
     }
     @Test
     public void redisTest(){
         String myKey = redisUtils.getByKey("myKey");
+        Assert.assertTrue(!StringUtils.isEmpty(myKey));
         System.out.println(myKey);
         redisUtils.setStr("jdd","11111");
         redisUtils.refreshTime("jdd",15);
@@ -42,7 +41,8 @@ public class TokenUtilsTest {
         user.setLoginname("jdd287061");
         user.setPassword("4545415");
         String token = TokenUtils.createToken(user);
-        redisUtils.setStrByTime("myKey",user.getId()+"",3000);
+        Assert.assertTrue(!StringUtils.isEmpty(token));
+        redisUtils.setStrByTime(token,user.getId()+"",3000);
         System.out.println(token);
     }
 

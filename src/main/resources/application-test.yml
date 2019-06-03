@@ -47,6 +47,9 @@ spring:
       max-file-size: 20MB
       #上传总数据大小 200M
       max-request-size: 200MB
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
 #    type: com.zaxxer.hikari.HikariDataSource
 token:
   # token 失效时间 20分钟
@@ -71,3 +74,20 @@ file:
   imagePath: E:/userPhotos/
 #本机域名配置
 localUrl: http://192.168.0.178:9990
+
+##微信appid
+weixin:
+    appid: wxde04fd06e3f94a
+    appSecret: 96dd18a762809783201f44381dc26
+    callBackUrl: http://18j20737v5.iok.la:44113/html/login.html
+    state: dadasdas
+qq:
+    appid: 101576465
+    appSecret: a45052f25fb74c10573b525aca79e938
+    callBackUrl: http://18j20737v5.iok.la:44113/html/login.html
+    state: ujasduayda
+weibo:
+    AppKey: 3141682736
+    AppSecret: 939d523fed5c2fcc8a2351ad418ec61e
+    callBackUrl: http://18j20737v5.iok.la:44113/html/login.html
+    state: jingujfy

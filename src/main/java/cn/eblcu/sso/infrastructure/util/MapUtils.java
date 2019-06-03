@@ -3,11 +3,6 @@ package cn.eblcu.sso.infrastructure.util;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @ClassName MapUtils
- * @Author 焦冬冬
- * @Date 2019/3/25 13:30
- **/
 public class MapUtils {
 
     private MapUtils(){}

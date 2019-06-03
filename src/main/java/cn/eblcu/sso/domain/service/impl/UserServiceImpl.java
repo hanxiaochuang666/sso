@@ -1,5 +1,6 @@
 package cn.eblcu.sso.domain.service.impl;
 
+import cn.eblcu.sso.domain.exception.DomainException;
 import cn.eblcu.sso.domain.service.IRegisterCheckService;
 import cn.eblcu.sso.domain.service.UserService;
 import cn.eblcu.sso.infrastructure.util.DateUtils;
@@ -123,7 +124,7 @@ public class UserServiceImpl implements UserService {
                 userInfoDao.insertSelective(userInfo);
             }
         } else {
-            throw new Exception("该用户不存在！");
+            throw new DomainException("该用户不存在！");
         }
     }
 
@@ -146,7 +147,7 @@ public class UserServiceImpl implements UserService {
             }
             userDao.updateByPrimaryKeySelective(user);
         } else {
-            throw new Exception("用户不存在！");
+            throw new DomainException("用户不存在！");
         }
     }
 

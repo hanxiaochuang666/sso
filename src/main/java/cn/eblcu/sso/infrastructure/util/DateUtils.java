@@ -6,11 +6,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-/**
- * @ClassName DateUtils
- * @Author 焦冬冬
- * @Date 2019/3/25 16:58
- **/
 public class DateUtils {
     private DateUtils() {}
 

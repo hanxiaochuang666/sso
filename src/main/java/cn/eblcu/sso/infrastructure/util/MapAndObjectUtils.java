@@ -6,11 +6,6 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @ClassName MapAndObject
- * @Author 焦冬冬
- * @Date 2019/3/22 17:00
- **/
 public class MapAndObjectUtils {
 
     private MapAndObjectUtils(){}

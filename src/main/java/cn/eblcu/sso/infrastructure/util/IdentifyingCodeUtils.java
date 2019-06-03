@@ -2,12 +2,7 @@ package cn.eblcu.sso.infrastructure.util;
 
 import java.util.Random;
 
-/**
- * @ClassName IdentifyingCodeUtils
- * @Author 焦冬冬
- * @Date 2019/5/29 11:32
- * 验证码生成工具类
- **/
+
 public class IdentifyingCodeUtils {
     private IdentifyingCodeUtils(){
     }
@@ -42,16 +37,5 @@ public class IdentifyingCodeUtils {
             }
         }
         return  res.toString();
-    }
-
-    public static void main(String[] args) {
-        String code = IdentifyingCodeUtils.createCode(6);
-        System.out.println(code);
-        code = IdentifyingCodeUtils.createCode(7);
-        System.out.println(code);
-        code = IdentifyingCodeUtils.createCode(8);
-        System.out.println(code);
-        code = IdentifyingCodeUtils.createCode(9);
-        System.out.println(code);
     }
 }

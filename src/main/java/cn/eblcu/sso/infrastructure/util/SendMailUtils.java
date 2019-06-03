@@ -15,11 +15,7 @@ import java.security.GeneralSecurityException;
 import java.util.Date;
 import java.util.Properties;
 
-/**
- * @ClassName SendMailUtils
- * @Author 焦冬冬
- * @Date 2019/5/29 9:26
- **/
+
 public class SendMailUtils {
     private SendMailUtils(){
 
