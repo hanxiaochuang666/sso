@@ -4,12 +4,14 @@ import cn.eblcu.sso.domain.exception.DomainException;
 import cn.eblcu.sso.domain.service.IRegisterCheckService;
 import cn.eblcu.sso.domain.service.UserService;
 import cn.eblcu.sso.infrastructure.util.DateUtils;
+import cn.eblcu.sso.infrastructure.util.SupperTokenUtils;
 import cn.eblcu.sso.infrastructure.util.TokenUtils;
 import cn.eblcu.sso.persistence.dao.UserDao;
 import cn.eblcu.sso.persistence.dao.UserInfoDao;
 import cn.eblcu.sso.persistence.entity.dto.User;
 import cn.eblcu.sso.persistence.entity.dto.UserInfo;
 import cn.eblcu.sso.ui.model.UserInfoApiModel;
+import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -71,13 +73,13 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public Map addUser(UserInfoApiModel userApiModel) throws Exception {
 
-        String regeisterType = userApiModel.getRegisterType();
+        Integer regeisterType = userApiModel.getRegisterType();
         String loginName = "";
         User user = new User();
-        if ("1".equals(regeisterType)) {
+        if (1 == regeisterType) {
             checkPhoneAndCode(userApiModel);
             loginName = "" + user.getMobile();
-        } else if ("2".equals(regeisterType)) {
+        } else if (2 == regeisterType) {
             checkEmailAndCode(userApiModel);
             loginName = user.getEmail();
         }
@@ -93,15 +95,39 @@ public class UserServiceImpl implements UserService {
         int id = user.getId();
         log.info("插入成功，返回主键id======" + user.getId());
         // 生成一个token返回给前端
-        String token = TokenUtils.createToken(user);
+        String token = SupperTokenUtils.getSupperToken(user);
         log.info("注册自动生成token============" + token);
         // 将token和id存入Redis
-        redisUtils.setStrByTime(token, "" + id, expires);
+        redisUtils.setStrByTime(token,"" + id,expires);
         Map<String, Object> retMap = new HashMap<>();
         retMap.put("token", token);
         retMap.put("id", id);
         retMap.put("loginName", user.getLoginname());
         return retMap;
+    }
+
+    @Override
+    public String login(UserInfoApiModel userInfoApiModel) throws Exception {
+
+        String userName = userInfoApiModel.getLoginname();
+        String passWord = userInfoApiModel.getPassword();
+        Integer loginType = userInfoApiModel.getLoginType();
+        User user1 = new User();
+        String tokenStr = "";
+
+        if (1 == loginType){// 手机号登录
+            boolean result = registerCheckService.checkRegister(userName, passWord);
+            if (!result) {
+                throw new Exception("手机验证码不正确或已过期！");
+            }
+            user1.setMobile(Long.parseLong(userName));
+            tokenStr = checkUserExist(user1,loginType);
+        }else if (2 == loginType){// 用户名登录
+            user1.setLoginname(userName);
+            user1.setPassword(passWord);
+            tokenStr = checkUserExist(user1,loginType);
+        }
+        return tokenStr;
     }
 
     @Override
@@ -137,11 +163,11 @@ public class UserServiceImpl implements UserService {
         // 检查用户是否存在
         User userCheck = userDao.selectByPrimaryKey(userInfoApiModel.getUserId());
         if (null != userCheck) {
-            String bindType = userInfoApiModel.getBindType();
-            if ("1".equals(bindType)) {// 手机绑定
+            Integer bindType = userInfoApiModel.getBindType();
+            if (1 == bindType) {// 手机绑定
                 checkPhoneAndCode(userInfoApiModel);
                 user.setMobile(userInfoApiModel.getMobile());
-            } else if ("2".equals(bindType)) {// 邮箱绑定
+            } else if (2 == bindType) {// 邮箱绑定
                 checkEmailAndCode(userInfoApiModel);
                 user.setEmail(userInfoApiModel.getEmail());
             }
@@ -194,5 +220,23 @@ public class UserServiceImpl implements UserService {
         if (null != users && users.size() > 0) {
             throw new Exception("该邮箱已被注册！");
         }
+    }
+
+    private String checkUserExist(User user1,Integer loginType) throws Exception{
+
+        String supperToken = "";
+        List<User> users = userDao.selectUserList(user1);
+        if(null != users && users.size() > 0){
+            user1.setId(users.get(0).getId());
+            supperToken = SupperTokenUtils.getSupperToken(user1);
+        }else{
+            if (1 == loginType){
+                throw new DomainException("该手机号还未注册，请先注册！");
+            }else if (2 == loginType){
+                throw new DomainException("账号或密码不正确！");
+            }
+        }
+        redisUtils.setStrByTime(supperToken,""+users.get(0).getId(), expires);
+        return supperToken;
     }
 }

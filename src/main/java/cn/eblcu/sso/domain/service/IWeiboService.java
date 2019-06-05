@@ -1,10 +1,11 @@
 package cn.eblcu.sso.domain.service;
 
 import cn.eblcu.sso.domain.exception.DomainException;
-import cn.eblcu.sso.ui.model.WeiBoUser;
+
+import java.util.Map;
 
 public interface IWeiboService {
     String getUrl() throws DomainException;
 
-    WeiBoUser weiboCallBack(String code, String state)throws Exception;
+    Map<String, Object> weiboCallBack(String code, String state)throws Exception;
 }

@@ -1,5 +1,7 @@
 server:
   port: 9990
+  tomcat:
+    uri-encoding: UTF-8
 mybatis:
   mapper-locations: mapper/*.xml
   type-aliases-package: cn.eblcu.sso.mapper
@@ -48,8 +50,13 @@ spring:
       #上传总数据大小 200M
       max-request-size: 200MB
   jackson:
-    serialization:
-      FAIL_ON_EMPTY_BEANS: false
+      serialization:
+        FAIL_ON_EMPTY_BEANS: false
+  http:
+    encoding:
+      force: true
+      charset: utf-8
+      enabled: true
 #    type: com.zaxxer.hikari.HikariDataSource
 token:
   # token 失效时间 20分钟
@@ -74,6 +81,10 @@ file:
   imagePath: E:/userPhotos/
 #本机域名配置
 localUrl: http://192.168.0.178:9990
+
+#生成秘钥对文件目录
+register:
+  filePath: D:/key/
 
 ##微信appid
 weixin:

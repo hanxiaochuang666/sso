@@ -4,15 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
-/**
- * @desc
- * @Author：hanchuang
- * @Version 1.0
- * @Date：add on 9:44 2019/5/29
- */
 @Slf4j
 public class FileUtils {
 
@@ -22,19 +15,10 @@ public class FileUtils {
     @Value("${localUrl}")
     private static String localUrl;
 
-    /**
-     * @Author hanchuang
-     * @Version 1.0
-     * @Date add on 2019/5/29
-     * @Description 文件上传
-     */
     public static String upLoadFile(MultipartFile file, String fileName) throws Exception {
 
         String filePath = fileUrl + fileName;
         File targetFile = new File(filePath);
-        if (targetFile.exists()) {
-            throw new Exception("文件已存在！");
-        }
         //判断文件父目录是否存在
         if (null != targetFile.getParentFile() && !targetFile.getParentFile().exists()) {
             targetFile.getParentFile().mkdirs();
@@ -43,14 +27,29 @@ public class FileUtils {
         try {
             //上传文件
             file.transferTo(targetFile);
-            System.out.print("保存文件路径==============" + filePath + "\n");
-            //url="http://域名/项目名/images/"+fileName;//正式项目
+            log.info("文件绝对路径==============" + filePath + "\n");
+//            url="http://域名/项目名/images/"+fileName;//正式项目
 //            url = "http://localhost:8080/images/"+fileName;//本地运行项目
             url = localUrl + "/images/" + fileName;//本地运行项目
-            log.info("文件地址url====" + url + "\n");
+            log.info("文件对外暴露的虚拟路径=============" + url + "\n");
         } catch (IOException e) {
             throw new Exception(e);
         }
         return url;
+    }
+
+    /* TXT文件读取*/
+    public static String readTxt(String filePath)throws Exception{
+        File filename = new File(filePath);
+        InputStreamReader reader = new InputStreamReader(
+                new FileInputStream(filename)); // 建立一个输入流对象reader
+        BufferedReader br = new BufferedReader(reader);
+        StringBuilder res=new StringBuilder();
+        String line=br.readLine();
+        while(null!=line){
+            res.append(line);
+            line = br.readLine();
+        }
+        return res.toString();
     }
 }

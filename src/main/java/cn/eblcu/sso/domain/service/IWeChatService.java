@@ -1,12 +1,11 @@
 package cn.eblcu.sso.domain.service;
 
-import cn.eblcu.sso.domain.exception.DomainException;
-import cn.eblcu.sso.ui.model.WeChatUser;
+import java.util.Map;
 
 
 public interface IWeChatService {
 
-    WeChatUser landCallBack(String code, String state1) throws DomainException;
+    Map<String, Object> landCallBack(String code, String state1) throws Exception;
 
     String  getUrl();
 }

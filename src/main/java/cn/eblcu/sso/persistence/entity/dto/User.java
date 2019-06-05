@@ -52,7 +52,6 @@ public class User implements Serializable {
 
     @ApiModelProperty(value = "用户扩展信息")
     private UserInfo userinfo;
-
     public User(){}
 
     public User(Integer id) {

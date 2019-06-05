@@ -55,4 +55,13 @@ public class TokenUtilsTest {
         }
         else System.out.println("不存在");
     }
+
+    @Test
+    public void test1()throws Exception{
+        User user = new User();
+        user.setLoginname("jdd28706dadas1");
+        user.setPassword("45454154324234");
+        String user1 = TokenUtils.hashStrByUser(user);
+        System.out.println(user1);
+    }
 }

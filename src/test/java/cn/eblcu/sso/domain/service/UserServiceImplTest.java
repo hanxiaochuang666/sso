@@ -51,7 +51,7 @@ public class UserServiceImplTest {
         UserInfoApiModel userApiModel = new UserInfoApiModel();
         userApiModel.setEmail("623233529@qq.com");
         userApiModel.setPassword("123123");
-        userApiModel.setRegisterType("2");// 邮箱注册
+        userApiModel.setRegisterType(2);// 邮箱注册
         userApiModel.setCode("E3r4t5");
         Map<String,Object> map = userService.addUser(userApiModel);
         log.info("注册结果======"+map.toString());
@@ -79,7 +79,7 @@ public class UserServiceImplTest {
         user.setEmail("623233529@qq.com");
         user.setLoginname("hanchuang");
         user.setCode("CUIRLd");// 绑定邮箱需要输入邮箱的验证码
-        user.setBindType("2");// 绑定类型为邮箱
+        user.setBindType(2);// 绑定类型为邮箱
         user.setUserId(1);
         try {
             userService.bindUser(user);

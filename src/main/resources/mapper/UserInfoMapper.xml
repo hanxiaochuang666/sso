@@ -138,9 +138,6 @@
   <update id="updateByPrimaryKeySelective" parameterType="cn.eblcu.sso.persistence.entity.dto.UserInfo">
     update user_info
     <set>
-      <if test="userid != null">
-        UserId = #{userid,jdbcType=INTEGER},
-      </if>
       <if test="nickname != null and nickname != '' ">
         NickName = #{nickname,jdbcType=VARCHAR},
       </if>

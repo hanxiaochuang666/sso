@@ -3,20 +3,16 @@ package cn.eblcu.sso.ui.api;
 import cn.eblcu.sso.domain.service.IQqService;
 import cn.eblcu.sso.domain.service.IWeChatService;
 import cn.eblcu.sso.domain.service.IWeiboService;
+import cn.eblcu.sso.domain.service.UserService;
 import cn.eblcu.sso.ui.model.BaseModle;
-import cn.eblcu.sso.ui.model.QqUser;
-import cn.eblcu.sso.ui.model.WeChatUser;
-import cn.eblcu.sso.ui.model.WeiBoUser;
+import cn.eblcu.sso.ui.model.UserInfoApiModel;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -35,6 +31,8 @@ public class CommonLoginApi {
 
     @Autowired
     private IWeChatService weChatService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping(value = "/getWeChatCheckUrl", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiOperation(value = "获取微信的登录跳转地址")
@@ -62,27 +60,30 @@ public class CommonLoginApi {
     }
 
     @GetMapping(value = "/callBack", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @ApiOperation(value = "第三方登录获取用户基本信息")
+    @ApiOperation(value = "第三方登录")
     public BaseModle callBack(@RequestParam("state") String state,
                               @RequestParam("code") String code,
                               @ApiParam(name = "callType", value = "登录方式 1：微博 2：QQ 3：微信", required = true) @RequestParam("callType") String callType) throws Exception {
 
         if ("1".equals(callType)) {// 微博
-            WeiBoUser weiBoUser = weiboService.weiboCallBack(code, state);
-            return BaseModle.getSuccessData(weiBoUser);
+            return BaseModle.getSuccessData(weiboService.weiboCallBack(code, state));
         }
 
         if ("2".equals(callType)) {// QQ
-            QqUser qqUser = qqService.qqCallBack(code, state);
-            return BaseModle.getSuccessData(qqUser);
+            return BaseModle.getSuccessData(qqService.qqCallBack(code, state));
         }
 
         if ("3".equals(callType)) {// 微信
-            WeChatUser weChatUser = weChatService.landCallBack(code,state);
-            return BaseModle.getSuccessData(weChatUser);
+            return BaseModle.getSuccessData(weChatService.landCallBack(code,state));
         }
         return BaseModle.getSuccessData();
     }
 
+    @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "账号登录")
+    public BaseModle login(@RequestParam(value = "userInfoApiModel") UserInfoApiModel userInfoApiModel) throws Exception {
+
+        return BaseModle.getSuccessData(userService.login(userInfoApiModel));
+    }
 
 }

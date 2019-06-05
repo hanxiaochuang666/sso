@@ -3,6 +3,7 @@ package cn.eblcu.sso.domain.service;
 import cn.eblcu.sso.persistence.entity.dto.User;
 import cn.eblcu.sso.persistence.entity.dto.UserInfo;
 import cn.eblcu.sso.ui.model.UserInfoApiModel;
+import com.alibaba.fastjson.JSONObject;
 
 import java.util.List;
 import java.util.Map;
@@ -29,12 +30,14 @@ public interface UserService {
     void deleteUser(int id);
 
     /**
-     * 注册使用
-     * @param user
-     * @return
-     * @throws Exception
+     * 注册
      */
     Map<String,Object> addUser(UserInfoApiModel user) throws Exception;
+
+    /**
+     * 登录
+     */
+    String login(UserInfoApiModel userInfoApiModel) throws Exception;
 
     /**
      * 用户信息完善
