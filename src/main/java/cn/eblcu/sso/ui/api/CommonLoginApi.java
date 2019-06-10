@@ -81,7 +81,7 @@ public class CommonLoginApi {
 
     @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ApiOperation(value = "账号登录")
-    public BaseModle login(@RequestParam(value = "userInfoApiModel") UserInfoApiModel userInfoApiModel) throws Exception {
+    public BaseModle login(@RequestBody UserInfoApiModel userInfoApiModel) throws Exception {
 
         return BaseModle.getSuccessData(userService.login(userInfoApiModel));
     }
